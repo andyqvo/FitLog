@@ -14,9 +14,13 @@ app.use(express.static(path.join(__dirname, '../client/dist')))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/program', programRoutes);
-app.use('/exercise', exerciseRoutes);
-app.use('/user', userRoutes);
+app.use('/api/program', programRoutes);
+app.use('/api/exercise', exerciseRoutes);
+app.use('/api/user', userRoutes);
+
+app.get('*', (req,res) =>{
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
