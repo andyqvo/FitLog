@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import setUser from './users/setUser';
-import getPrograms from './programs/getPrograms';
-import setProgram from './programs/setProgram';
+import setUser from './users';
+import programs from './programs';
+import exercises from './exercises';
 
 const rootReducer = combineReducers({
   userId: setUser,
-  programs: getPrograms,
-  programId: setProgram
+  programs,
+  exercises
 });
 
 

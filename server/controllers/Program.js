@@ -20,8 +20,16 @@ const postProgram = (req, res) => {
     .catch(err => res.status(400).send(err));
 };
 
+const deleteProgram = (req, res) => {
+  const { programId } = req.params;
+  Program.deleteOne({_id: programId})
+    .then(program => res.status(200).send(program))
+    .catch(err => res.status(400).send(err));
+};
+
 module.exports = {
   getProgram,
   getProgramByUser,
-  postProgram
+  postProgram,
+  deleteProgram
 };
