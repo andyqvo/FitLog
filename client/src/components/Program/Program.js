@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 
-import { getPrograms } from '../../redux/actions/programs';
+import { getProgramsByUser, getPrograms } from '../../redux/actions/programs';
 import CreateProgram from './CreateProgram';
 import ProgramList from './ProgramList';
 
@@ -16,7 +16,8 @@ const Program = ({currentId, setCurrentId}) => {
 
   useEffect(() => {
     if (userId) {
-      dispatch(getPrograms(userId));
+      dispatch(getProgramsByUser(userId));
+      // dispatch(getPrograms(userId));
     }
   }, []);
 

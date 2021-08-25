@@ -1,8 +1,17 @@
 import * as api from '../../api';
 
-export const getPrograms = (userId) => async (dispatch) => {
+export const getProgramsByUser = (userId) => async (dispatch) => {
   try {
-    const { data } = await api.getPrograms(userId);
+    const { data } = await api.getProgramsByUser(userId);
+    dispatch({type: 'GET_PROGRAMS', payload: data});
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const getPrograms = () => async (dispatch) => {
+  try {
+    const { data } = await api.getPrograms();
     dispatch({type: 'GET_PROGRAMS', payload: data});
   } catch (error) {
     console.log(error);

@@ -8,6 +8,12 @@ const getProgram = (req, res) => {
     .catch(err => res.status(400).send(err));
 };
 
+const getAllPrograms = (req, res) => {
+  Program.find()
+    .then(program => res.status(200).send(program))
+    .catch(err => res.status(400).send(err));
+};
+
 const getProgramByUser = (req, res) => {
   const { userId } = req.params;
   Program.find({userId})
@@ -41,6 +47,7 @@ const updateProgram = (req, res) => {
 
 module.exports = {
   getProgram,
+  getAllPrograms,
   getProgramByUser,
   postProgram,
   deleteProgram,
