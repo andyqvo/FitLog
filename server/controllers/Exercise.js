@@ -9,7 +9,8 @@ const getExercise = (req, res) => {
 };
 
 const postExercise = (req, res) => {
-  Exercise.create(req.body)
+  const exercise = req.body;
+  Exercise.create({...exercise, creator: req.userId})
     .then(exercises => res.status(200).send(exercises))
     .catch(err => res.status(400).send(err));
 };
