@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { TextField, Select, MenuItem, InputLabel, FormLabel, Button, makeStyles, Grid } from '@material-ui/core';
+import { TextField, Select, MenuItem, InputLabel, FormLabel, Button, makeStyles, Grid, Paper, Typography } from '@material-ui/core';
 import { createProgram, updateProgram } from '../../redux/actions/programs';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,8 +19,6 @@ const CreateProgram = ({setCurrentId, currentId}) => {
 
   const classes = useStyles();
 
-  const userId = useSelector(style => style.userId);
-
   const dispatch = useDispatch();
 
   const weeks = [];
@@ -33,6 +31,8 @@ const CreateProgram = ({setCurrentId, currentId}) => {
   const [programForm, setProgramForm] = useState(initialState);
 
   const program = useSelector(state => currentId ? state.programs.find((p) => p._id === currentId) : null);
+
+  const user = JSON.parse(localStorage.getItem('profile'));
 
   const handleChange = (e) => {
     setProgramForm(prevState => ({
@@ -50,9 +50,9 @@ const CreateProgram = ({setCurrentId, currentId}) => {
     e.preventDefault();
     if (programForm.name.length && programForm.numOfWeeks > 0) {
       if (program) {
-        dispatch(updateProgram(currentId, programForm));
+        dispatch(updateProgram(currentId, {...programForm, creatorName: user?.result?.name}));
       } else {
-        dispatch(createProgram({...programForm, userId}));
+        dispatch(createProgram({...programForm, creatorName: user?.result?.name}));
       }
       clearFields();
     } else {
@@ -65,6 +65,17 @@ const CreateProgram = ({setCurrentId, currentId}) => {
       setProgramForm(program);
     }
   }, [currentId])
+
+
+  if (!user?.result?.name) {
+    return (
+      <Paper className={classes.paper}>
+        <Typography variant="h6" align="center">
+          Please sign in to create a program!
+        </Typography>
+      </Paper>
+    )
+  }
 
   return (
     <Grid container alignItems="center" justifyContent="center" style={{paddingBottom: "20px"}}>

@@ -13,6 +13,8 @@ import { deleteProgram } from '../../redux/actions/programs';
 
 const ProgramList = ({setCurrentId, currentId, programs}) => {
 
+  const user = JSON.parse(localStorage.getItem('profile'));
+
   const dispatch = useDispatch();
 
   const programList = programs.map(program => {
@@ -22,10 +24,15 @@ const ProgramList = ({setCurrentId, currentId, programs}) => {
           <Link href={`/program/${program._id}`}>{program.name}</Link>
         </TableCell>
         <TableCell align="right">{program.numOfWeeks}</TableCell>
+        <TableCell align="right">{program.creatorName}</TableCell>
         <TableCell align="right">{program.created}</TableCell>
         <TableCell align="right">
-          <Button color="primary" onClick={() => {setCurrentId(program._id)}}>Edit</Button>
-          <Button color="secondary" onClick={() => {dispatch(deleteProgram(program._id))}}>Delete</Button>
+          {(user?.result?.googleId === program?.creator || user?.result?._id === program?.creator) && (
+            <>
+            <Button color="primary" onClick={() => {setCurrentId(program._id)}}>Edit</Button>
+            <Button color="secondary" onClick={() => {dispatch(deleteProgram(program._id))}}>Delete</Button>
+            </>
+          )}
         </TableCell>
       </TableRow>
     )
@@ -38,6 +45,7 @@ const ProgramList = ({setCurrentId, currentId, programs}) => {
         <TableRow>
           <TableCell>Program Name</TableCell>
           <TableCell align="right">Number of Weeks</TableCell>
+          <TableCell align="right">Author</TableCell>
           <TableCell align="right">Created</TableCell>
           <TableCell align="right">Actions</TableCell>
         </TableRow>

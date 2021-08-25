@@ -11,14 +11,10 @@ const Program = ({currentId, setCurrentId}) => {
 
   const dispatch = useDispatch();
 
-  const userId = useSelector(state => state.userId);
   const programs = useSelector(state => state.programs);
 
   useEffect(() => {
-    if (userId) {
-      dispatch(getProgramsByUser(userId));
-      // dispatch(getPrograms(userId));
-    }
+    dispatch(getPrograms());
   }, []);
 
   return (

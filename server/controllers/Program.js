@@ -22,7 +22,8 @@ const getProgramByUser = (req, res) => {
 };
 
 const postProgram = (req, res) => {
-  Program.create(req.body)
+  const program = req.body;
+  Program.create({...program, creator: req.userId})
     .then(program => res.status(200).send(program))
     .catch(err => res.status(400).send(err));
 };
