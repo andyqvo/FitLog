@@ -10,3 +10,4 @@ export const updateProgram = (programId, program) => API.patch(`http://localhost
 export const getExercises = (programId) => API.get(`http://localhost:3000/api/exercise/${programId}`);
 export const createExercise = (exercise) => API.post(`http://localhost:3000/api/exercise/create`, exercise);
 export const deleteExercise = (exerciseId) => API.delete(`http://localhost:3000/api/exercise/${exerciseId}`);
+export const updateExercise = (exerciseId, exercise) => API.patch(`http://localhost:3000/api/exercise/${exerciseId}`, exercise);

@@ -21,6 +21,8 @@ const Exercise = ({match}) => {
 
   const exercises = useSelector(state => state.exercises);
 
+  const [exerciseId, setExerciseId] = useState(null);
+
   const weekdays = {
     '1': 'Monday',
     '2': 'Tuesday',
@@ -43,12 +45,12 @@ const Exercise = ({match}) => {
 
   return (
     <div>
-      <AddExercise programId={programId} getExercises={getExercises}/>
+      <AddExercise programId={programId} getExercises={getExercises} exerciseId={exerciseId} setExerciseId={setExerciseId}/>
       <div style={{padding: "50px"}}>
-        <ExerciseList name="Today's Exercises" exercises={activeExercises}/>
+        <ExerciseList name="Today's Exercises" exercises={activeExercises} exerciseId={exerciseId} setExerciseId={setExerciseId}/>
       </div>
       <div style={{padding: "50px"}}>
-        <ExerciseList name="Rest of the Week" exercises={unactiveExercises}/>
+        <ExerciseList name="Rest of the Week" exercises={unactiveExercises} exerciseId={exerciseId} setExerciseId={setExerciseId}/>
       </div>
     </div>
   )

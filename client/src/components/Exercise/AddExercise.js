@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { TextField, Select, MenuItem, InputLabel, FormLabel, Button, makeStyles, Checkbox, FormGroup, FormControlLabel, FormControl, Grid } from '@material-ui/core';
 
-import { createExercise } from '../../redux/actions/exercises';
+import { createExercise, updateExercise } from '../../redux/actions/exercises';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,11 +17,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddExercise = ({getExercises, programId}) => {
+const AddExercise = ({getExercises, programId, exerciseId, setExerciseId}) => {
 
   const classes = useStyles();
 
   const dispatch = useDispatch();
+
+  const exercise = useSelector(state => exerciseId ? state.exercises.find((p) => p._id === exerciseId) : null);
+
+  useEffect(() => {
+    if (exercise) {
+      setExerciseForm(exercise);
+    };
+  }, [exerciseId]);
 
   const initialState = {
     name: '',
@@ -29,7 +37,7 @@ const AddExercise = ({getExercises, programId}) => {
     sets: '',
     reps: '',
     days: []
-  }
+  };
 
   const [exerciseForm, setExerciseForm] = useState(initialState);
 
@@ -54,8 +62,13 @@ const AddExercise = ({getExercises, programId}) => {
 
   const handleSubmit = (e) => {
     if (exerciseForm.name && exerciseForm.weight && exerciseForm.sets && exerciseForm.reps && exerciseForm.days.length) {
-      dispatch(createExercise({...exerciseForm, programId}));
+      if (exerciseId) {
+        dispatch(updateExercise(exerciseId, exerciseForm))
+      } else {
+        dispatch(createExercise({...exerciseForm, programId}));
+      }
       setExerciseForm(initialState);
+      setExerciseId(null);
     } else {
       alert('Invalid submission. Please fill in all blank fields.')
     }
@@ -72,18 +85,18 @@ const AddExercise = ({getExercises, programId}) => {
       <Grid item>
         <FormControl component="fieldset">
           <FormGroup aria-label="position" row>
-            <FormControlLabel value="Monday" control={<Checkbox color="primary" />} label="Monday" labelPlacement="top" onChange={handleDayChange}/>
-            <FormControlLabel value="Tuesday" control={<Checkbox color="primary" />} label="Tuesday" labelPlacement="top" onChange={handleDayChange}/>
-            <FormControlLabel value="Wednesday" control={<Checkbox color="primary" />} label="Wednesday" labelPlacement="top" onChange={handleDayChange}/>
-            <FormControlLabel value="Thursday" control={<Checkbox color="primary" />} label="Thursday" labelPlacement="top" onChange={handleDayChange}/>
-            <FormControlLabel value="Friday" control={<Checkbox color="primary" />} label="Friday" labelPlacement="top" onChange={handleDayChange}/>
-            <FormControlLabel value="Saturday" control={<Checkbox color="primary" />} label="Saturday" labelPlacement="top" onChange={handleDayChange}/>
-            <FormControlLabel value="Sunday" control={<Checkbox color="primary" />} label="Sunday" labelPlacement="top" onChange={handleDayChange}/>
+            <FormControlLabel value="Monday" control={<Checkbox color="primary" />} label="Monday" labelPlacement="top" onChange={handleDayChange} checked={exerciseForm.days.indexOf("Monday") !== -1}/>
+            <FormControlLabel value="Tuesday" control={<Checkbox color="primary" />} label="Tuesday" labelPlacement="top" onChange={handleDayChange} checked={exerciseForm.days.indexOf("Tuesday") !== -1}/>
+            <FormControlLabel value="Wednesday" control={<Checkbox color="primary" />} label="Wednesday" labelPlacement="top" onChange={handleDayChange} checked={exerciseForm.days.indexOf("Wednesday") !== -1}/>
+            <FormControlLabel value="Thursday" control={<Checkbox color="primary" />} label="Thursday" labelPlacement="top" onChange={handleDayChange} checked={exerciseForm.days.indexOf("Thursday") !== -1}/>
+            <FormControlLabel value="Friday" control={<Checkbox color="primary" />} label="Friday" labelPlacement="top" onChange={handleDayChange} checked={exerciseForm.days.indexOf("Friday") !== -1}/>
+            <FormControlLabel value="Saturday" control={<Checkbox color="primary" />} label="Saturday" labelPlacement="top" onChange={handleDayChange} checked={exerciseForm.days.indexOf("Saturday") !== -1}/>
+            <FormControlLabel value="Sunday" control={<Checkbox color="primary" />} label="Sunday" labelPlacement="top" onChange={handleDayChange} checked={exerciseForm.days.indexOf("Sunday") !== -1}/>
           </FormGroup>
         </FormControl>
       </Grid>
       <Grid item>
-        <Button className={classes.formField} variant="outlined" onClick={handleSubmit}>Add Exercise</Button>
+        <Button className={classes.formField} variant="outlined" onClick={handleSubmit}>{exercise ? 'Update Exercise' : 'Add Exercise'}</Button>
       </Grid>
     </Grid>
   )

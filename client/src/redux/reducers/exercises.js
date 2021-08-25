@@ -8,6 +8,8 @@ export default (exercises = [], action) => {
       return exercises.filter((exercise) => {
         return exercise._id !== action.payload
       });
+    case 'UPDATE_EXERCISE':
+      return exercises.map((exercise) => exercise._id === action.payload._id ? action.payload : exercise);
     default:
       return exercises;
   }

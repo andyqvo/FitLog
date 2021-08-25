@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 
 import { deleteExercise } from '../../redux/actions/exercises';
 
-const ExerciseList = ({exercises, name}) => {
+const ExerciseList = ({exercises, name, exerciseId, setExerciseId}) => {
 
   const dispatch = useDispatch();
 
@@ -24,7 +24,10 @@ const ExerciseList = ({exercises, name}) => {
         <TableCell align="right">{exercise.sets}</TableCell>
         <TableCell align="right">{exercise.reps}</TableCell>
         <TableCell align="right">{exercise.days.map((day) => day.slice(0, 3)).join(', ')}</TableCell>
-        <TableCell align="right"><Button color="secondary" onClick={() => {dispatch(deleteExercise(exercise._id))}}>Delete</Button></TableCell>
+        <TableCell align="right">
+          <Button color="primary" onClick={() => {setExerciseId(exercise._id)}}>Edit</Button>
+          <Button color="secondary" onClick={() => {dispatch(deleteExercise(exercise._id))}}>Delete</Button>
+        </TableCell>
       </TableRow>
     )
   });
@@ -40,7 +43,7 @@ const ExerciseList = ({exercises, name}) => {
           <TableCell align="right">Sets</TableCell>
           <TableCell align="right">Reps</TableCell>
           <TableCell align="right">Days</TableCell>
-          <TableCell align="right">Delete</TableCell>
+          <TableCell align="right">Actions</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

@@ -7,5 +7,6 @@ router
   .get('/:programId', Exercise.getExercise)
   .post('/create', Exercise.postExercise)
   .delete('/:exerciseId', Exercise.deleteExercise)
+  .patch('/:exerciseId', Exercise.updateExercise)
 
 module.exports = router;
