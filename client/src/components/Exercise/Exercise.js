@@ -8,10 +8,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import AddExercise from './AddExercise';
 import ExerciseList from './ExerciseList';
 import { getExercises } from '../../redux/actions/exercises';
+import { getProgramsById } from '../../redux/actions/programs';
 
 const Exercise = ({match}) => {
 
@@ -20,6 +22,11 @@ const Exercise = ({match}) => {
   const dispatch = useDispatch();
 
   const exercises = useSelector(state => state.exercises);
+
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const id = user?.result.googleId || user?.result._id;
+
+  const program = useSelector(state => state.programs)[0];
 
   const [exerciseId, setExerciseId] = useState(null);
 
@@ -40,12 +47,19 @@ const Exercise = ({match}) => {
   const unactiveExercises = exercises.filter(exercise => exercise.days.indexOf(day) === -1);
 
   useEffect(() => {
+    dispatch(getProgramsById(programId));
     dispatch(getExercises(programId));
   }, []);
 
   return (
     <div>
-      <AddExercise programId={programId} getExercises={getExercises} exerciseId={exerciseId} setExerciseId={setExerciseId}/>
+      <Typography variant="h4" align="center" style={{padding: "50px"}}>{program?.name} by {program?.creatorName}</Typography>
+
+      {(user?.result?.googleId === program?.creator || user?.result?._id === program?.creator) && (
+        <>
+          <AddExercise programId={programId} getExercises={getExercises} exerciseId={exerciseId} setExerciseId={setExerciseId}/>
+        </>
+      )}
       <div style={{padding: "50px"}}>
         <ExerciseList name="Today's Exercises" exercises={activeExercises} exerciseId={exerciseId} setExerciseId={setExerciseId}/>
       </div>

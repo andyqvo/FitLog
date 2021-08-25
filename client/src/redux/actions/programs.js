@@ -18,6 +18,15 @@ export const getPrograms = () => async (dispatch) => {
   }
 }
 
+export const getProgramsById = (programId) => async (dispatch) => {
+  try {
+    const { data } = await api.getProgramsById(programId);
+    dispatch({type: 'GET_PROGRAMS', payload: data});
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const createProgram = (program) => async (dispatch) => {
   try {
     const { data } = await api.createProgram(program);

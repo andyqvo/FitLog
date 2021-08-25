@@ -69,7 +69,7 @@ const CreateProgram = ({setCurrentId, currentId}) => {
 
   if (!user?.result?.name) {
     return (
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={{paddingBottom: "20px"}}>
         <Typography variant="h6" align="center">
           Please sign in to create a program!
         </Typography>

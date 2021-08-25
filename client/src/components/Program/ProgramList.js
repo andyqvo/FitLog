@@ -18,6 +18,7 @@ const ProgramList = ({setCurrentId, currentId, programs}) => {
   const dispatch = useDispatch();
 
   const programList = programs.map(program => {
+    let disable = (user?.result?.googleId !== program?.creator && user?.result?._id !== program?.creator);
     return (
       <TableRow key={program._id}>
         <TableCell component="th" scope="row">
@@ -27,12 +28,8 @@ const ProgramList = ({setCurrentId, currentId, programs}) => {
         <TableCell align="right">{program.creatorName}</TableCell>
         <TableCell align="right">{program.created}</TableCell>
         <TableCell align="right">
-          {(user?.result?.googleId === program?.creator || user?.result?._id === program?.creator) && (
-            <>
-            <Button color="primary" onClick={() => {setCurrentId(program._id)}}>Edit</Button>
-            <Button color="secondary" onClick={() => {dispatch(deleteProgram(program._id))}}>Delete</Button>
-            </>
-          )}
+          <Button color="primary" onClick={() => {setCurrentId(program._id)}} disabled={disable}>Edit</Button>
+          <Button color="secondary" onClick={() => {dispatch(deleteProgram(program._id))}} disabled={disable}>Delete</Button>
         </TableCell>
       </TableRow>
     )
