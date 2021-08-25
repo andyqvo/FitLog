@@ -35,7 +35,7 @@ const Program = () => {
         </TableCell>
         <TableCell align="right">{program.numOfWeeks}</TableCell>
         <TableCell align="right">{program.created}</TableCell>
-        <TableCell align="right">{program.updated}</TableCell>
+        {/* <TableCell align="right">{program.updated}</TableCell> */}
         <TableCell align="right"><Button color="secondary" onClick={() => {dispatch(deleteProgram(program._id))}}>Delete</Button></TableCell>
       </TableRow>
     )
@@ -51,7 +51,7 @@ const Program = () => {
             <TableCell>Program Name</TableCell>
             <TableCell align="right">Number of Weeks</TableCell>
             <TableCell align="right">Created</TableCell>
-            <TableCell align="right">Updated</TableCell>
+            {/* <TableCell align="right">Updated</TableCell> */}
             <TableCell align="right">Delete</TableCell>
           </TableRow>
         </TableHead>
