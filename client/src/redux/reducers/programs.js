@@ -8,6 +8,8 @@ export default (programs = [], action) => {
       return programs.filter((program) => {
         return program._id !== action.payload
       });
+    case 'UPDATE_PROGRAM':
+      return programs.map((program) => program._id === action.payload._id ? action.payload : program);
     default:
       return programs;
   }

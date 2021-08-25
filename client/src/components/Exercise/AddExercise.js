@@ -62,7 +62,7 @@ const AddExercise = ({getExercises, programId}) => {
   }
 
   return (
-    <Grid container alignItems="center" justify="center">
+    <Grid container alignItems="center" justifyContent="center">
       <Grid item style={{paddingBottom: "20px"}}>
         <TextField className={classes.formField} name="name" variant="outlined" label="Exercise Name" onChange={handleChange} value={exerciseForm.name}/>
         <TextField className={classes.formField} name="weight" variant="outlined" label="Weight" type="number" onChange={handleChange} value={exerciseForm.weight}/>

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { TextField, Select, MenuItem, InputLabel, FormLabel, Button, makeStyles } from '@material-ui/core';
-import { createProgram } from '../../redux/actions/programs';
+import { TextField, Select, MenuItem, InputLabel, FormLabel, Button, makeStyles, Grid } from '@material-ui/core';
+import { createProgram, updateProgram } from '../../redux/actions/programs';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,12 +11,11 @@ const useStyles = makeStyles((theme) => ({
   },
   formField: {
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: '25ch',
+    marginRight: theme.spacing(1)
   },
 }));
 
-const CreateProgram = () => {
+const CreateProgram = ({setCurrentId, currentId}) => {
 
   const classes = useStyles();
 
@@ -33,6 +32,8 @@ const CreateProgram = () => {
 
   const [programForm, setProgramForm] = useState(initialState);
 
+  const program = useSelector(state => currentId ? state.programs.find((p) => p._id === currentId) : null);
+
   const handleChange = (e) => {
     setProgramForm(prevState => ({
       ...prevState,
@@ -43,19 +44,35 @@ const CreateProgram = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (programForm.name.length && programForm.numOfWeeks > 0) {
-      dispatch(createProgram({...programForm, userId}));
-      setProgramForm(initialState);
+      if (program) {
+        dispatch(updateProgram(currentId, programForm));
+        setProgramForm(initialState);
+        setCurrentId(null);
+      } else {
+        dispatch(createProgram({...programForm, userId}));
+        setProgramForm(initialState);
+      }
+    } else {
+      alert('Please complete all form fields');
     }
   };
 
+  useEffect(() => {
+    if (program) {
+      setProgramForm(program);
+    }
+  }, [currentId])
+
   return (
-    <form className={classes.root}>
+    <Grid container alignItems="center" justifyContent="center" style={{paddingBottom: "20px"}}>
+      <div className={classes.root}>
       <TextField className={classes.formField} name="name" variant="outlined" label="Program Name" onChange={handleChange} value={programForm.name}/>
       <Select className={classes.formField} name="numOfWeeks" defaultValue="" variant="outlined" onChange={handleChange} value={programForm.numOfWeeks}>
         {weeks}
       </Select>
-      <Button className={classes.formField} variant="outlined" onClick={handleSubmit}>Create Program</Button>
-    </form>
+      <Button className={classes.formField} variant="outlined" onClick={handleSubmit}>{program ? 'Update Program' : 'Create Program'}</Button>
+      </div>
+    </Grid>
   )
 }
 

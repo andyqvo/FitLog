@@ -26,3 +26,12 @@ export const deleteProgram = (programId) => async (dispatch) => {
     console.log(error);
   }
 }
+
+export const updateProgram = (programId, program) => async (dispatch) => {
+  try {
+    const { data } = await api.updateProgram(programId, program);
+    dispatch({type: 'UPDATE_PROGRAM', payload: data});
+  } catch (error) {
+    console.log(error);
+  }
+}

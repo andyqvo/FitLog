@@ -1,4 +1,5 @@
 const Program = require('../db/Program');
+const mongoose = require('mongoose');
 
 const getProgram = (req, res) => {
   const { programId } = req.params;
@@ -27,9 +28,21 @@ const deleteProgram = (req, res) => {
     .catch(err => res.status(400).send(err));
 };
 
+const updateProgram = (req, res) => {
+  const { programId } = req.params;
+  const program = req.body;
+  if (!mongoose.Types.ObjectId.isValid(programId)) {
+    return res.status(400).send('No program found.');
+  }
+  Program.findByIdAndUpdate(programId, {...program, _id: programId}, {new: true})
+    .then(program => res.status(200).send(program))
+    .catch(err => res.status(400).send(err));
+}
+
 module.exports = {
   getProgram,
   getProgramByUser,
   postProgram,
-  deleteProgram
+  deleteProgram,
+  updateProgram
 };
