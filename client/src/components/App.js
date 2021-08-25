@@ -19,6 +19,7 @@ const App = () => {
         <Navbar />
         <Switch>
           <Route path="/" exact><Program currentId={currentId} setCurrentId={setCurrentId}/></Route>
+          <Route path="/browse" exact><Program currentId={currentId} setCurrentId={setCurrentId}/></Route>
           <Route path="/auth" exact component={Auth}/>
           <Route path="/program/:programId" component={Exercise}/>
         </Switch>

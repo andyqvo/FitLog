@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 
@@ -10,12 +11,20 @@ import ProgramList from './ProgramList';
 const Program = ({currentId, setCurrentId}) => {
 
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const id = user?.result.googleId || user?.result._id;
 
   const programs = useSelector(state => state.programs);
 
   useEffect(() => {
-    dispatch(getPrograms());
-  }, []);
+    if (location.pathname === '/') {
+      dispatch(getProgramsByUser(id));
+    } else {
+      dispatch(getPrograms());
+    }
+  }, [location]);
 
   return (
     <div className="programs">

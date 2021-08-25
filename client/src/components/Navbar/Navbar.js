@@ -39,6 +39,7 @@ const Navbar = () => {
         <Typography component={Link} to="/" className={classes.heading} variant="h4" align="center">FitLog</Typography>
       </div>
       <Toolbar className={classes.toolbar}>
+      <Typography component={Link} to="/browse" className={classes.links} variant="h6" align="center">Browse</Typography>
         {user ? (
           <div className={classes.profile}>
             <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}>{user.result.name.charAt(0)}</Avatar>

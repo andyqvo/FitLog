@@ -16,7 +16,7 @@ const getAllPrograms = (req, res) => {
 
 const getProgramByUser = (req, res) => {
   const { userId } = req.params;
-  Program.find({userId})
+  Program.find({creator: userId})
     .then(program => res.status(200).send(program))
     .catch(err => res.status(400).send(err));
 };
