@@ -60,6 +60,11 @@ const AddExercise = ({getExercises, programId, exerciseId, setExerciseId}) => {
     }
   }
 
+  const clearFields = () => {
+    setExerciseForm(initialState);
+    setExerciseId(null);
+  }
+
   const handleSubmit = (e) => {
     if (exerciseForm.name && exerciseForm.weight && exerciseForm.sets && exerciseForm.reps && exerciseForm.days.length) {
       if (exerciseId) {
@@ -67,8 +72,7 @@ const AddExercise = ({getExercises, programId, exerciseId, setExerciseId}) => {
       } else {
         dispatch(createExercise({...exerciseForm, programId}));
       }
-      setExerciseForm(initialState);
-      setExerciseId(null);
+      clearFields();
     } else {
       alert('Invalid submission. Please fill in all blank fields.')
     }
@@ -97,6 +101,9 @@ const AddExercise = ({getExercises, programId, exerciseId, setExerciseId}) => {
       </Grid>
       <Grid item>
         <Button className={classes.formField} variant="outlined" onClick={handleSubmit}>{exercise ? 'Update Exercise' : 'Add Exercise'}</Button>
+      </Grid>
+      <Grid item>
+        <Button variant="outlined" onClick={clearFields}>Clear</Button>
       </Grid>
     </Grid>
   )

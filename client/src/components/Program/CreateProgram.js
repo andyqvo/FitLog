@@ -41,17 +41,20 @@ const CreateProgram = ({setCurrentId, currentId}) => {
     }))
   };
 
+  const clearFields = () => {
+    setProgramForm(initialState);
+    setCurrentId(null);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (programForm.name.length && programForm.numOfWeeks > 0) {
       if (program) {
         dispatch(updateProgram(currentId, programForm));
-        setProgramForm(initialState);
-        setCurrentId(null);
       } else {
         dispatch(createProgram({...programForm, userId}));
-        setProgramForm(initialState);
       }
+      clearFields();
     } else {
       alert('Please complete all form fields');
     }
@@ -71,6 +74,7 @@ const CreateProgram = ({setCurrentId, currentId}) => {
         {weeks}
       </Select>
       <Button className={classes.formField} variant="outlined" onClick={handleSubmit}>{program ? 'Update Program' : 'Create Program'}</Button>
+      <Button variant="outlined" onClick={clearFields}>Clear</Button>
       </div>
     </Grid>
   )
