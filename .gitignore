@@ -34,7 +34,6 @@ bower_components/
 .floo
 .flooignore
 
-README.md
 *.jpeg
 .DS_Store
 config.js
