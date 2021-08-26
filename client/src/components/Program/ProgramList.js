@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Link, Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
+import moment from 'moment';
 
 import { deleteProgram } from '../../redux/actions/programs';
 
@@ -19,7 +20,7 @@ const ProgramList = ({setCurrentId, currentId, programs}) => {
         </TableCell>
         <TableCell align="right">{program.numOfWeeks}</TableCell>
         <TableCell align="right">{program.creatorName}</TableCell>
-        <TableCell align="right">{program.created}</TableCell>
+        <TableCell align="right">{moment(program.created).fromNow()}</TableCell>
         <TableCell align="right">
           <Button color="primary" onClick={() => {setCurrentId(program._id)}} disabled={disable}>Edit</Button>
           <Button color="secondary" onClick={() => {dispatch(deleteProgram(program._id))}} disabled={disable}>Delete</Button>
