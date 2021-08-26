@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 import { getProgramsByUser, getPrograms } from '../../redux/actions/programs';
 import CreateProgram from './CreateProgram';
@@ -25,6 +27,17 @@ const Program = ({currentId, setCurrentId}) => {
       dispatch(getPrograms());
     }
   }, [location]);
+
+
+  if (!user?.result?.name) {
+    return (
+      <Paper style={{paddingBottom: "20px"}}>
+        <Typography variant="h6" align="center">
+          Please sign in to create a program!
+        </Typography>
+      </Paper>
+    )
+  }
 
   return (
     <div className="programs">

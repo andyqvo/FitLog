@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { TextField, Select, MenuItem, InputLabel, FormLabel, Button, makeStyles, Grid, Paper, Typography } from '@material-ui/core';
+import { TextField, Select, MenuItem, InputLabel, FormLabel, Button, makeStyles, Grid, Typography } from '@material-ui/core';
 import { createProgram, updateProgram } from '../../redux/actions/programs';
 
 const useStyles = makeStyles((theme) => ({
@@ -65,17 +65,6 @@ const CreateProgram = ({setCurrentId, currentId}) => {
       setProgramForm(program);
     }
   }, [currentId])
-
-
-  if (!user?.result?.name) {
-    return (
-      <Paper className={classes.paper} style={{paddingBottom: "20px"}}>
-        <Typography variant="h6" align="center">
-          Please sign in to create a program!
-        </Typography>
-      </Paper>
-    )
-  }
 
   return (
     <Grid container alignItems="center" justifyContent="center" style={{paddingBottom: "20px"}}>
