@@ -5,7 +5,6 @@ import programs from './programs';
 import exercises from './exercises';
 
 const rootReducer = combineReducers({
-  // userId: setUser,
   programs,
   exercises,
   auth
