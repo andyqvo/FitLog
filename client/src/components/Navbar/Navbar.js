@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import { AppBar, Typography, Toolbar, Button, Avatar } from '@material-ui/core';
+import { AppBar, Typography, Toolbar, Button, Avatar, makeStyles } from '@material-ui/core';
 import decode from 'jwt-decode';
 import useStyles from './styles.js';
 

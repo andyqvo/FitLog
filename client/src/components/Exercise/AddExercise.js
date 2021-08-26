@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import { TextField, Select, MenuItem, InputLabel, FormLabel, Button, makeStyles, Checkbox, FormGroup, FormControlLabel, FormControl, Grid } from '@material-ui/core';
+import { TextField, InputLabel, FormLabel, Button, makeStyles, Checkbox, FormGroup, FormControlLabel, FormControl, Grid } from '@material-ui/core';
 
 import { createExercise, updateExercise } from '../../redux/actions/exercises';
 
