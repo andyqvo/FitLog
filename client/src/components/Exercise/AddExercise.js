@@ -100,10 +100,10 @@ const AddExercise = ({getExercises, programId, exerciseId, setExerciseId}) => {
         </FormControl>
       </Grid>
       <Grid item>
-        <Button className={classes.formField} variant="outlined" onClick={handleSubmit}>{exercise ? 'Update Exercise' : 'Add Exercise'}</Button>
+        <Button className={classes.formField} variant="outlined" color="primary" onClick={handleSubmit}>{exercise ? 'Update Exercise' : 'Add Exercise'}</Button>
       </Grid>
       <Grid item>
-        <Button variant="outlined" onClick={clearFields}>Clear</Button>
+        <Button variant="outlined" onClick={clearFields} color="secondary">Clear</Button>
       </Grid>
     </Grid>
   )

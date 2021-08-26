@@ -84,8 +84,8 @@ const CreateProgram = ({setCurrentId, currentId}) => {
       <Select className={classes.formField} name="numOfWeeks" defaultValue="" variant="outlined" onChange={handleChange} value={programForm.numOfWeeks}>
         {weeks}
       </Select>
-      <Button className={classes.formField} variant="outlined" onClick={handleSubmit}>{program ? 'Update Program' : 'Create Program'}</Button>
-      <Button variant="outlined" onClick={clearFields}>Clear</Button>
+      <Button className={classes.formField} variant="outlined" onClick={handleSubmit} color="primary">{program ? 'Update Program' : 'Create Program'}</Button>
+      <Button variant="outlined" onClick={clearFields} color="secondary">Clear</Button>
       </div>
     </Grid>
   )
