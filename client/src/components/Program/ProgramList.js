@@ -2,6 +2,8 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Link, Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 import { deleteProgram } from '../../redux/actions/programs';
 
@@ -22,8 +24,8 @@ const ProgramList = ({setCurrentId, currentId, programs}) => {
         <TableCell align="right">{program.creatorName}</TableCell>
         <TableCell align="right">{moment(program.created).fromNow()}</TableCell>
         <TableCell align="right">
-          <Button color="primary" onClick={() => {setCurrentId(program._id)}} disabled={disable}>Edit</Button>
-          <Button color="secondary" onClick={() => {dispatch(deleteProgram(program._id))}} disabled={disable}>Delete</Button>
+          <Button color="primary" onClick={() => {setCurrentId(program._id)}} disabled={disable}><EditIcon/></Button>
+          <Button color="secondary" onClick={() => {dispatch(deleteProgram(program._id))}} disabled={disable}><DeleteIcon/></Button>
         </TableCell>
       </TableRow>
     )

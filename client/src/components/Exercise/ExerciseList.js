@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 import { deleteExercise } from '../../redux/actions/exercises';
 
@@ -32,8 +34,8 @@ const ExerciseList = ({exercises, name, exerciseId, setExerciseId}) => {
         <TableCell align="right">{exercise.reps}</TableCell>
         <TableCell align="right">{exercise.days.map((day) => day.slice(0, 3)).join(', ')}</TableCell>
         <TableCell align="right">
-          <Button color="primary" onClick={() => {setExerciseId(exercise._id)}} disabled={disable}>Edit</Button>
-          <Button color="secondary" onClick={() => {dispatch(deleteExercise(exercise._id))}} disabled={disable}>Delete</Button>
+          <Button color="primary" onClick={() => {setExerciseId(exercise._id)}} disabled={disable}><EditIcon/></Button>
+          <Button color="secondary" onClick={() => {dispatch(deleteExercise(exercise._id))}} disabled={disable}><DeleteIcon/></Button>
         </TableCell>
       </TableRow>
     )

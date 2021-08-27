@@ -9,14 +9,14 @@ const getProgram = (req, res) => {
 };
 
 const getAllPrograms = (req, res) => {
-  Program.find()
+  Program.find().sort({'creatorName': 1, 'name': 1})
     .then(program => res.status(200).send(program))
     .catch(err => res.status(400).send(err));
 };
 
 const getProgramByUser = (req, res) => {
   const { userId } = req.params;
-  Program.find({creator: userId})
+  Program.find({creator: userId}).sort('name')
     .then(program => res.status(200).send(program))
     .catch(err => res.status(400).send(err));
 };
