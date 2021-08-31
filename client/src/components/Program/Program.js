@@ -14,7 +14,7 @@ const Program = ({currentId, setCurrentId}) => {
   const location = useLocation();
 
   const user = JSON.parse(localStorage.getItem('profile'));
-  const id = user?.result.googleId || user?.result._id;
+  const id = user?.result?.googleId || user?.result?._id;
 
   const programs = useSelector(state => state.programs);
 
