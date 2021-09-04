@@ -8,7 +8,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Input from './Input';
 import Icon from './icon';
-import config from './config';
 import { signin, signup } from '../../redux/actions/users';
 
 const Auth = () => {
@@ -88,7 +87,7 @@ const Auth = () => {
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>{isSignup ? 'Sign Up' : 'Sign In'}</Button>
           <GoogleLogin
-                  clientId={config.client_id}
+                  clientId={process.env.CLIENT_ID}
                   render={(renderProps) => (
                     <Button
                       className={classes.googleButton}
