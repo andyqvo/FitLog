@@ -1,5 +1,7 @@
 # FitLog
 
+[Demo](https://fitlogx.herokuapp.com/)
+
 ### What is FitLog?
   > A web application for gym-goers to create their own personalized workout programs and track their progress.
   > FitLog seeks to provide a platform for clients to easily create their own personalized workout programs, track their progress, and share programs with their friends!
