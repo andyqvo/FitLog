@@ -17,7 +17,7 @@ const config = {
       'process.env': {
         'CLIENT_ID': JSON.stringify(process.env.CLIENT_ID),
       }
-    });
+    })
   ],
   module: {
     rules: [
