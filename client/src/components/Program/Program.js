@@ -19,27 +19,16 @@ const Program = ({currentId, setCurrentId}) => {
   const programs = useSelector(state => state.programs);
 
   useEffect(() => {
-    if (location.pathname === '/') {
+    if (location.pathname === '/' && user?.result?.name) {
       dispatch(getProgramsByUser(id));
     } else {
       dispatch(getPrograms());
     }
   }, [location]);
 
-
-  if (!user?.result?.name) {
-    return (
-      <Paper style={{paddingBottom: "20px"}}>
-        <Typography variant="h6" align="center">
-          Please sign in to create a program!
-        </Typography>
-      </Paper>
-    )
-  }
-
   return (
     <div className="programs">
-      <CreateProgram currentId={currentId} setCurrentId={setCurrentId}/>
+      {user?.result?.name && <CreateProgram currentId={currentId} setCurrentId={setCurrentId}/>}
       <ProgramList programs={programs} currentId={currentId} setCurrentId={setCurrentId}/>
     </div>
   )
